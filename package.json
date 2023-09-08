@@ -1,0 +1,46 @@
+{
+  "name": "generated-web-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npx hardhat run --network base scripts/deployContract.js",
+    "verify": "npx hardhat verify --network base 0x3e474ddfF6D8e8F289622b2c64e4F839f80d97ae",
+    "test": "npx hardhat test --network localhost"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.1.0",
+    "@openzeppelin/contracts-upgradeable": "^4.1.0",
+    "base64-sol": "^1.1.0",
+    "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "ethereum-waffle": "^3.3.0",
+    "ethers": "^5.0.32",
+    "hardhat": "^2.17.2",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.2.27",
+    "papaparse": "^5.3.2",
+    "prettier-plugin-solidity": "^1.0.0-beta.12",
+    "recursive-fs": "^2.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakeywan/generated-web-contract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jakeywan/generated-web-contract/issues"
+  },
+  "homepage": "https://github.com/jakeywan/generated-web-contract#readme",
+  "dependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9"
+  },
+  "engines": {
+    "npm": ">=6.14.13",
+    "yarn": "please use npm"
+  }
+}
