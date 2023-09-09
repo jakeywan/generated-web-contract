@@ -6,6 +6,8 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { Base64 } from "base64-sol/base64.sol";
+// TODO: remove
+import "hardhat/console.sol";
 
 /// @notice ServerMetadataRenderer for
 contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
@@ -26,6 +28,11 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         uint256 endPriceInWei; // .1 eth
         address payable fundsRecipient;
     }
+
+    mapping(uint256 => bool) public tokenIsMinted;
+    uint256 private nextAvailableRandomId;
+    uint256 public supplyCount;
+    uint256 public maxSupply = 1000;
 
     constructor()
       ERC721("Generated Web", "GENWEB")
@@ -73,18 +80,44 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         // check against merkle roots
     }
 
-    function _mintWithChecks() internal {
+    function _mintWithChecks(uint256 tokenId) internal nonReentrant {
         require(block.timestamp >= config.startTime && block.timestamp <= config.endTime, "Sale inactive");
         uint256 currentPrice = getCurrentPrice();
         require(msg.value >= currentPrice, "Not enough ether");
+
+        tokenIsMinted[tokenId] = true;
+        supplyCount++;
+
+        _safeMint(msg.sender, tokenId);
     }
 
-    function mintSpecific(uint256 seed) external payable {
+    function mintSpecific(uint256 tokenId) external payable {
+        require(tokenId < maxSupply, "Invalid token requested");
+        require(!_exists(tokenId), "Token already minted!");
 
+        _mintWithChecks(tokenId);
     }
 
     function mintRandom() external payable {
+        require(supplyCount < 1000, "All tokens minted");
+        uint256 nextAvailable = this._findAvailable(nextAvailableRandomId);
+ 
+        nextAvailableRandomId = nextAvailable + 1;
 
+        _mintWithChecks(nextAvailable);
+    }
+
+    /// @dev if the one requested is already minted, try the next one. this can make about
+    /// 300 jumps without running out of gas, so it's highly unlikely we'll run into this issue
+    /// (we'd have to have basically nobody using the mintRandom function, and all the mints
+    /// mintSpecifics consolidated to specific groupings/regions)
+    function _findAvailable(uint256 index) public view returns (uint256) {
+        console.logUint(index);
+        if (tokenIsMinted[index] == true) {
+            return _findAvailable(index + 1);
+        } else {
+            return index;
+        }
     }
 
     string public templateA = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><script>let e;var t,n="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof self?self:"undefined"!=typeof window?window:"undefined"!=typeof global?global:{};function i(e){return e&&e.__esModule?e.default:e}var l={};l=\'html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{font-size:100%;font:inherit;vertical-align:baseline;border:0;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:"";content:none}table{border-collapse:collapse;border-spacing:0}\';var r={};r="html,body{width:100%;height:100%;margin:0;padding:0}.container{width:100%;height:100%;display:flex;position:relative}.element{box-sizing:border-box;flex-grow:1;flex-shrink:1;min-width:0;min-height:0;display:flex}input,button{box-sizing:border-box;max-width:100%}select{width:100%}";var o={init:e=>{var t,n,i,l;e+="";let r=function(e){let t=1779033703,n=3144134277,i=1013904242,l=2773480762;for(let r=0,o;r<e.length;r++)t=n^Math.imul(t^(o=e.charCodeAt(r)),597399067),n=i^Math.imul(n^o,2869860233),i=l^Math.imul(i^o,951274213),l=t^Math.imul(l^o,2716044179);return t=Math.imul(i^t>>>18,597399067),n=Math.imul(l^n>>>22,2869860233),i=Math.imul(t^i>>>17,951274213),l=Math.imul(n^l>>>19,2716044179),[(t^n^i^l)>>>0,(n^t)>>>0,(i^t)>>>0,(l^t)>>>0]}(e),o=(t=r[0],n=r[1],i=r[2],l=r[3],function(){t>>>=0,n>>>=0,i>>>=0,l>>>=0;var e=t+n|0;return t=n^n>>>9,n=i+(i<<3)|0,i=i<<21|i>>>11,e=e+(l=l+1|0)|0,i=i+e|0,(e>>>0)/4294967296});return{value:()=>o(),range:(e=0,t=1)=>e+o()*(t-e),rangeInteger:(e=0,t=1)=>e+Math.round(o()*(t-e)),pick:e=>e[Math.floor(o()*e.length)],probability:e=>o()<e,shuffle:e=>{let t=e.length,n,i;for(;0!==t;)i=Math.floor(o()*t),t-=1,n=e[t],e[t]=e[i],e[i]=n;return e}}}};function a(e,t,n){return Math.min(Math.max(e,t),n)}var c={init:e=>{let t={r:e.rangeInteger(0,255),g:e.rangeInteger(0,255),b:e.rangeInteger(0,255)},n={min:0,max:255},i=e.rangeInteger(50);function l(){let l=e.rangeInteger(1,i);t.r+=e.rangeInteger(-l,l),t.r=a(t.r,n.min,n.max),t.g+=e.rangeInteger(-l,l),t.g=a(t.g,n.min,n.max),t.b+=e.rangeInteger(-l,l),t.b=a(t.b,n.min,n.max)}return{single:()=>(function(){l();let e={...t};return e})(),set:()=>(l(),{low:{r:a(t.r-30,n.min,n.max),g:a(t.g-30,n.min,n.max),b:a(t.b-30,n.min,n.max)},mid:{r:t.r,g:t.g,b:t.b},high:{r:a(t.r+30,n.min,n.max),g:a(t.g+30,n.min,n.max),b:a(t.b+30,n.min,n.max)}})}},stringify:(e,t=1)=>`rgba(${e.r},${e.g},${e.b}, ${t})`,distanceSquared:(e,t)=>Math.pow(e.r-t.r,2)+Math.pow(e.g-t.g,2)+Math.pow(e.b-t.b,2),rgbToHsv:e=>{let t,n=e.r/255,i=e.g/255,l=e.b/255,r=Math.max(n,i,l),o=Math.min(n,i,l),a=r-o;if(r==o)t=0;else{switch(r){case n:t=(i-l)/a+(i<l?6:0);break;case i:t=(l-n)/a+2;break;case l:t=(n-i)/a+4}t/=6}return{h:t,s:0==r?0:a/r,v:r}}};const s=o.init("JRLxSPRPSxJK"),d="Document".split("");d[0]=" "+d[0].toUpperCase();const m=s.shuffle(function(e){let t=[];return!function n(i){if(1===i)t.push([...e]);else for(let t=0;t<i;t++)n(i-1),function(t,n){let i=e[t];e[t]=e[n],e[n]=i}(i%2?0:t,i-1)}(e.length),t}(d));\nn.oid=\'';
@@ -105,6 +138,8 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         // Artist dropholders, 20%
         // Fingerprints members, 20%
         // Selected communities, 15%
+
+    //======================= ADMIN FUNCTIONS ================================
 
     function updateConfig(
         uint64 startTime,
