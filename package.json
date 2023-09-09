@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat run --network base scripts/deployContract.js",
-    "verify": "npx hardhat verify --network base 0x3e474ddfF6D8e8F289622b2c64e4F839f80d97ae",
+    "deploy": "npx hardhat run --network goerli scripts/deployContract.js",
+    "verify": "npx hardhat verify --network goerli 0x3e474ddfF6D8e8F289622b2c64e4F839f80d97ae",
     "test": "npx hardhat test --network localhost"
   },
   "devDependencies": {
@@ -20,6 +20,7 @@
     "ethereum-waffle": "^3.3.0",
     "ethers": "^5.0.32",
     "hardhat": "^2.17.2",
+    "hardhat-gas-reporter": "^1.0.9",
     "keccak256": "^1.0.6",
     "merkletreejs": "^0.2.27",
     "papaparse": "^5.3.2",
