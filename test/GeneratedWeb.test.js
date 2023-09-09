@@ -48,7 +48,7 @@ describe('GeneratedWeb', () => {
   })
 
   it('Should print tokenURI', async () => {
-    console.log(await contract.tokenURI(1))
+    console.log(await contract.tokenURI(0))
     expect(true).to.equal(true)
   })
 
