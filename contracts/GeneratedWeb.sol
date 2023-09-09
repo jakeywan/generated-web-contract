@@ -80,7 +80,7 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         // check against merkle roots
     }
 
-    function _mintWithChecks(uint256 tokenId) internal nonReentrant {
+    function _mintWithChecks(uint256 tokenId) internal {
         require(block.timestamp >= config.startTime && block.timestamp <= config.endTime, "Sale inactive");
         uint256 currentPrice = getCurrentPrice();
         require(msg.value >= currentPrice, "Not enough ether");
@@ -91,14 +91,14 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         _safeMint(msg.sender, tokenId);
     }
 
-    function mintSpecific(uint256 tokenId) external payable {
+    function mintSpecific(uint256 tokenId) external payable nonReentrant {
         require(tokenId < maxSupply, "Invalid token requested");
         require(!_exists(tokenId), "Token already minted!");
 
         _mintWithChecks(tokenId);
     }
 
-    function mintRandom() external payable {
+    function mintRandom() external payable nonReentrant {
         require(supplyCount < 1000, "All tokens minted");
         uint256 nextAvailable = this._findAvailable(nextAvailableRandomId);
  
@@ -107,12 +107,10 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         _mintWithChecks(nextAvailable);
     }
 
-    /// @dev if the one requested is already minted, try the next one. this can make about
-    /// 300 jumps without running out of gas, so it's highly unlikely we'll run into this issue
-    /// (we'd have to have basically nobody using the mintRandom function, and all the mints
-    /// mintSpecifics consolidated to specific groupings/regions)
+    /// @dev if the one requested is already minted, try the next one. this can
+    /// run out of gas in cases where few people mintRandom and all mintSpecific mints
+    /// are consolidated in specific regions (highly unlikely)
     function _findAvailable(uint256 index) public view returns (uint256) {
-        console.logUint(index);
         if (tokenIsMinted[index] == true) {
             return _findAvailable(index + 1);
         } else {
