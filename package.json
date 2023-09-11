@@ -25,6 +25,7 @@
     "merkletreejs": "^0.2.27",
     "papaparse": "^5.3.2",
     "prettier-plugin-solidity": "^1.0.0-beta.12",
+    "puppeteer": "^20.0.0",
     "recursive-fs": "^2.1.0"
   },
   "repository": {
