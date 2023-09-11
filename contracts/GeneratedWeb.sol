@@ -100,10 +100,6 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
             bool isHolder = checkMerkleProof(merkleProof, msg.sender, holderMerkleRoot);
             bool isFpMember = checkMerkleProof(merkleProof, msg.sender, fpMembersMerkleRoot);
 
-            console.logBool(isCommunity);
-            console.logBool(isHolder);
-            console.logBool(isFpMember);
-
             if (isHolder || isFpMember) {
                 currentPrice = (currentPrice * 80) / 100; // 20% off
             } else if (isCommunity) {
@@ -168,11 +164,6 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         bytes32 leaf = keccak256(abi.encodePacked(_address));
         return MerkleProof.verify(merkleProof, _root, leaf);
     }
-
-    // Allowlists. We can have various allowlists, some of which are at different discount tiers.
-        // Artist dropholders, 20%
-        // Fingerprints members, 20%
-        // Selected communities, 15%
 
     //======================= ADMIN FUNCTIONS ================================
 
