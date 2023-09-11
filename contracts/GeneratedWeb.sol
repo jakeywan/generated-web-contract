@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -7,11 +7,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { Base64 } from "base64-sol/base64.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
+import "./interfaces/IDelegationRegistry.sol";
 // TODO: remove
 import "hardhat/console.sol";
 
 contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
     using Strings for uint256;
+
+    IDelegationRegistry delegationRegistry = IDelegationRegistry(0x00000000000076A84feF008CDAbe6409d2FE638B);
 
     struct TokenData {
         string seed;
@@ -86,19 +89,20 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         return decayedPrice;
     }
 
-    function getUserDiscount(address userAddress) public view returns (uint256) {
-        // check against merkle roots
-    }
-
-    function _mintWithChecks(uint256 tokenId, bytes32[] calldata merkleProof) internal {
+    function _mintWithChecks(uint256 tokenId, bytes32[] calldata merkleProof, address vault) internal {
         require(block.timestamp >= config.startTime && block.timestamp <= config.endTime, "Sale inactive");
         uint256 currentPrice = getCurrentPrice();
 
         if (merkleProof.length > 0) {
-            // check merkle roots for various allowlists and then apply appropriate discount
-            bool isCommunity = checkMerkleProof(merkleProof, msg.sender, communitiesMerkleRoot);
-            bool isHolder = checkMerkleProof(merkleProof, msg.sender, holderMerkleRoot);
-            bool isFpMember = checkMerkleProof(merkleProof, msg.sender, fpMembersMerkleRoot);
+            // check delegate.cash to see if this sender is a delegate for a vault
+            bool senderIsVaultDelegate = delegationRegistry.checkDelegateForAll(msg.sender, vault);
+
+            address addressToCheck = senderIsVaultDelegate ? vault : msg.sender;
+
+            // check address against merkle roots for various allowlists and then apply appropriate discount
+            bool isCommunity = checkMerkleProof(merkleProof, addressToCheck, communitiesMerkleRoot);
+            bool isHolder = checkMerkleProof(merkleProof, addressToCheck, holderMerkleRoot);
+            bool isFpMember = checkMerkleProof(merkleProof, addressToCheck, fpMembersMerkleRoot);
 
             if (isHolder || isFpMember) {
                 currentPrice = (currentPrice * 80) / 100; // 20% off
@@ -115,21 +119,20 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         _safeMint(msg.sender, tokenId);
     }
 
-    function mintSpecific(uint256 tokenId, bytes32[] calldata merkleProof) external payable nonReentrant {
+    function mintSpecific(uint256 tokenId, bytes32[] calldata merkleProof, address vault) external payable nonReentrant {
         require(tokenId < maxSupply, "Invalid token requested");
         require(!_exists(tokenId), "Token already minted!");
 
-        _mintWithChecks(tokenId, merkleProof);
+        _mintWithChecks(tokenId, merkleProof, vault);
     }
 
-    // TODO: mint multiple
-    function mintRandom(bytes32[] calldata merkleProof) external payable nonReentrant {
+    function mintRandom(bytes32[] calldata merkleProof, address vault) external payable nonReentrant {
         require(supplyCount < 1000, "All tokens minted");
         uint256 nextAvailable = this._findAvailable(nextAvailableRandomId);
  
         nextAvailableRandomId = nextAvailable + 1;
 
-        _mintWithChecks(nextAvailable, merkleProof);
+        _mintWithChecks(nextAvailable, merkleProof, vault);
     }
 
     /// @dev if the one requested is already minted, try the next one. this can

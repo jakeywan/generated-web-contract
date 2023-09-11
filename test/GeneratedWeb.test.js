@@ -69,28 +69,28 @@ describe('GeneratedWeb', () => {
 
   it('Should mint four specific tokens', async () => {
     const price = await contract.getCurrentPrice()
-    await contract.mintSpecific(4, [], {
+    await contract.mintSpecific(4, [], ethers.constants.AddressZero, {
       gasLimit: 5000000,
       value: price
     })
     console.log("minted 4")
 
     const price2 = await contract.getCurrentPrice()
-    await contract.mintSpecific(32, [], {
+    await contract.mintSpecific(32, [], ethers.constants.AddressZero, {
       gasLimit: 5000000,
       value: price2
     })
     console.log("minted 32")
 
     const price3 = await contract.getCurrentPrice()
-    await contract.mintSpecific(999, [], {
+    await contract.mintSpecific(999, [], ethers.constants.AddressZero, {
       gasLimit: 5000000,
       value: price3
     })
     console.log("minted 999")
 
     const price4 = await contract.getCurrentPrice()
-    await contract.mintSpecific(547, [], {
+    await contract.mintSpecific(547, [], ethers.constants.AddressZero, {
       gasLimit: 5000000,
       value: price4
     })
@@ -144,7 +144,7 @@ describe('GeneratedWeb', () => {
   it('Should let a holder mint with a 20% discount', async () => {
     const currentPrice = await contract.getCurrentPrice()
 
-    const mintTxn = await contract.connect(holderSigner).mintSpecific(12, holderProof, {
+    const mintTxn = await contract.connect(holderSigner).mintSpecific(12, holderProof, ethers.constants.AddressZero, {
       gasLimit: 5000000,
       value: String(Number(currentPrice) * 0.8)
     })
@@ -155,7 +155,7 @@ describe('GeneratedWeb', () => {
   it('Should NOT let a non-holder mint with a 20% discount', async () => {
     const currentPrice = await contract.getCurrentPrice()
 
-    const mintTxn = contract.mintSpecific(13, holderProof, {
+    const mintTxn = contract.mintSpecific(13, holderProof, ethers.constants.AddressZero, {
       gasLimit: 5000000,
       value: String(Number(currentPrice) * 0.8)
     })
@@ -190,26 +190,19 @@ describe('GeneratedWeb', () => {
   it('Should withdraw funds', async () => {
     const contractBalance = await ethers.provider.getBalance(contract.address)
     const contractEtherBalance = ethers.utils.formatEther(contractBalance)
-    console.log("contract balance", contractEtherBalance)
 
     const testAddress = '0x2D63a6Ee734287955Edc1201ef3344E5Fe7E2847'
     const balance = await ethers.provider.getBalance(testAddress)
     const etherBalance = ethers.utils.formatEther(balance)
-    console.log("user balance", etherBalance)
-
-    
 
     // overloaded functions for `release` and `released`
     const releaseTxn = await contract.withdraw()
     await releaseTxn.wait()
-
     
     const newUserEtherBalance = ethers.utils.formatEther(await ethers.provider.getBalance(testAddress))
-    console.log("new user ether balance", newUserEtherBalance)
 
-    console.log(etherBalance + contractEtherBalance)
-    expect(newUserEtherBalance * 1).to.equal(etherBalance * 1 + contractEtherBalance * 1)
-
+    // rounding to avoid small precision inaccuracies reporting failed tests
+    expect(parseFloat(newUserEtherBalance * 1).toFixed(8)).to.equal(parseFloat(etherBalance * 1 + contractEtherBalance * 1).toFixed(8))
   })
 
   it('Should add tokendata', async() => {
@@ -316,5 +309,7 @@ describe('GeneratedWeb', () => {
       {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
     ])
   })
+
+  // TODO: test delegate.cash functionality 
 
 })
