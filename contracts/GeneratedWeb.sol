@@ -214,4 +214,10 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         }
     }
 
+    function updateMerkleRoots(bytes32 _holderRoot, bytes32 _fbMemberRoot, bytes32 _communityRoot) external onlyOwner {
+        holderMerkleRoot = _holderRoot;
+        fpMembersMerkleRoot = _fbMemberRoot;
+        communitiesMerkleRoot = _communityRoot;
+    }
+
 }
