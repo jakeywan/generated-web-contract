@@ -186,6 +186,32 @@ describe('GeneratedWeb', () => {
     expect(owner).to.be.revertedWith("Token does not exist")
   })
 
+  // TODO: test withdrawing funds
+  it('Should withdraw funds', async () => {
+    const contractBalance = await ethers.provider.getBalance(contract.address)
+    const contractEtherBalance = ethers.utils.formatEther(contractBalance)
+    console.log("contract balance", contractEtherBalance)
+
+    const testAddress = '0x2D63a6Ee734287955Edc1201ef3344E5Fe7E2847'
+    const balance = await ethers.provider.getBalance(testAddress)
+    const etherBalance = ethers.utils.formatEther(balance)
+    console.log("user balance", etherBalance)
+
+    
+
+    // overloaded functions for `release` and `released`
+    const releaseTxn = await contract.withdraw()
+    await releaseTxn.wait()
+
+    
+    const newUserEtherBalance = ethers.utils.formatEther(await ethers.provider.getBalance(testAddress))
+    console.log("new user ether balance", newUserEtherBalance)
+
+    console.log(etherBalance + contractEtherBalance)
+    expect(newUserEtherBalance * 1).to.equal(etherBalance * 1 + contractEtherBalance * 1)
+
+  })
+
   it('Should add tokendata', async() => {
     const update = await contract.addTokenData([
       {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
