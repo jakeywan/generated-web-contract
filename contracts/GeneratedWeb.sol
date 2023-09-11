@@ -94,7 +94,7 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         require(block.timestamp >= config.startTime && block.timestamp <= config.endTime, "Sale inactive");
         uint256 currentPrice = getCurrentPrice();
 
-        // if (merkleProof[0] != 0) {
+        if (merkleProof.length > 0) {
             // check merkle roots for various allowlists and then apply appropriate discount
             bool isCommunity = checkMerkleProof(merkleProof, msg.sender, communitiesMerkleRoot);
             bool isHolder = checkMerkleProof(merkleProof, msg.sender, holderMerkleRoot);
@@ -109,7 +109,7 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
             } else if (isCommunity) {
                 currentPrice = (currentPrice * 85) / 100; // 15% off
             }
-        // }
+        }
 
         require(msg.value >= currentPrice, "Not enough ether");
 
