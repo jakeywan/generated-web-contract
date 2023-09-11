@@ -21,7 +21,7 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         string name;
         uint8 color;
         uint8 complexity;
-        uint8 fill;
+        uint8 coverage;
     }
 
     TokenData[] public tokenData;
