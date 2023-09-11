@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { Base64 } from "base64-sol/base64.sol";
+import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 // TODO: remove
 import "hardhat/console.sol";
 
@@ -22,10 +23,10 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
 
     TokenData[] public tokenData;
 
-    // TODO: implement these discounts
-    bytes32 public holderMerkleRoot; // 20% discount
-    bytes32 public fpMembersMerkleRoot; // 20% discount
-    bytes32 public communitiesMerkleRoot; // 15% discount
+    // TODO: add the final merkle roots in
+    bytes32 public holderMerkleRoot = 0xe79d621b6ce06c4c74de82ba8f7a7e320228f93cde3e368de3d5e268b74e1c2d; // 20% discount
+    bytes32 public fpMembersMerkleRoot = 0xe79d621b6ce06c4c74de82ba8f7a7e320228f93cde3e368de3d5e268b74e1c2d; // 20% discount
+    bytes32 public communitiesMerkleRoot = 0xe79d621b6ce06c4c74de82ba8f7a7e320228f93cde3e368de3d5e268b74e1c2d; // 15% discount
 
     uint256 internal immutable FUNDS_SEND_GAS_LIMIT = 210_000;
 
@@ -89,9 +90,27 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         // check against merkle roots
     }
 
-    function _mintWithChecks(uint256 tokenId) internal {
+    function _mintWithChecks(uint256 tokenId, bytes32[] calldata merkleProof) internal {
         require(block.timestamp >= config.startTime && block.timestamp <= config.endTime, "Sale inactive");
         uint256 currentPrice = getCurrentPrice();
+
+        // if (merkleProof[0] != 0) {
+            // check merkle roots for various allowlists and then apply appropriate discount
+            bool isCommunity = checkMerkleProof(merkleProof, msg.sender, communitiesMerkleRoot);
+            bool isHolder = checkMerkleProof(merkleProof, msg.sender, holderMerkleRoot);
+            bool isFpMember = checkMerkleProof(merkleProof, msg.sender, fpMembersMerkleRoot);
+
+            console.logBool(isCommunity);
+            console.logBool(isHolder);
+            console.logBool(isFpMember);
+
+            if (isHolder || isFpMember) {
+                currentPrice = (currentPrice * 80) / 100; // 20% off
+            } else if (isCommunity) {
+                currentPrice = (currentPrice * 85) / 100; // 15% off
+            }
+        // }
+
         require(msg.value >= currentPrice, "Not enough ether");
 
         tokenIsMinted[tokenId] = true;
@@ -100,21 +119,21 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         _safeMint(msg.sender, tokenId);
     }
 
-    function mintSpecific(uint256 tokenId) external payable nonReentrant {
+    function mintSpecific(uint256 tokenId, bytes32[] calldata merkleProof) external payable nonReentrant {
         require(tokenId < maxSupply, "Invalid token requested");
         require(!_exists(tokenId), "Token already minted!");
 
-        _mintWithChecks(tokenId);
+        _mintWithChecks(tokenId, merkleProof);
     }
 
     // TODO: mint multiple
-    function mintRandom() external payable nonReentrant {
+    function mintRandom(bytes32[] calldata merkleProof) external payable nonReentrant {
         require(supplyCount < 1000, "All tokens minted");
         uint256 nextAvailable = this._findAvailable(nextAvailableRandomId);
  
         nextAvailableRandomId = nextAvailable + 1;
 
-        _mintWithChecks(nextAvailable);
+        _mintWithChecks(nextAvailable, merkleProof);
     }
 
     /// @dev if the one requested is already minted, try the next one. this can
@@ -138,6 +157,16 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         string memory finalTemplate = Base64.encode(bytes(string(abi.encodePacked(templateA, tokenData[tokenId].seed, templateB))));
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name":"', tokenId, '", "description":"', description, '", "animation_url":"data:text/html;base64,', finalTemplate, '"}'))));
         return string(abi.encodePacked('data:application/json;base64,', json));
+    }
+
+    /// @dev check whether the merkleProof is valid for a given address and root
+    function checkMerkleProof(
+        bytes32[] calldata merkleProof,
+        address _address,
+        bytes32 _root
+    ) public pure returns (bool) {
+        bytes32 leaf = keccak256(abi.encodePacked(_address));
+        return MerkleProof.verify(merkleProof, _root, leaf);
     }
 
     // Allowlists. We can have various allowlists, some of which are at different discount tiers.

@@ -2,12 +2,16 @@ const { expect } = require('chai')
 const { utils } = require('ethers')
 const { ethers } = require('hardhat')
 const { time } = require('@nomicfoundation/hardhat-network-helpers')
+const generateMerkleProof = require('../scripts/generateMerkleProof')
+const holders = require('../allowlists/holders')
+const provider = waffle.provider;
 
 // const metadata = require('../files/final_data.json')
 
 describe('GeneratedWeb', () => {
 
   let contract
+  let holderProof
 
   before(async () => {
     const [deployer] = await ethers.getSigners()
@@ -15,6 +19,17 @@ describe('GeneratedWeb', () => {
 
     const GeneratedWeb = await ethers.getContractFactory('GeneratedWeb')
     contract = await GeneratedWeb.deploy()
+
+    holderAddress = '0xaBCF7ca8Ba78eB75d79DFf6B0F9fa23e78293cCB'
+    holderProof = generateMerkleProof(holderAddress, holders)
+    console.log('Holder merkle proof:', holderProof)
+
+    holderSigner =  new ethers.Wallet(process.env.WALLET_PRIVATE_KEY, provider)
+    // first fund our wallet (doesn't have eth on test network)
+    await deployer.sendTransaction({
+      to: holderAddress,
+      value: ethers.utils.parseEther("6.0"), // Sends exactly 6.0 ether
+    });
 
   })
 
@@ -54,28 +69,28 @@ describe('GeneratedWeb', () => {
 
   it('Should mint four specific tokens', async () => {
     const price = await contract.getCurrentPrice()
-    await contract.mintSpecific(4, {
+    await contract.mintSpecific(4, [], {
       gasLimit: 5000000,
       value: price
     })
     console.log("minted 4")
 
     const price2 = await contract.getCurrentPrice()
-    await contract.mintSpecific(32, {
+    await contract.mintSpecific(32, [], {
       gasLimit: 5000000,
       value: price2
     })
     console.log("minted 32")
 
     const price3 = await contract.getCurrentPrice()
-    await contract.mintSpecific(999, {
+    await contract.mintSpecific(999, [], {
       gasLimit: 5000000,
       value: price3
     })
     console.log("minted 999")
 
     const price4 = await contract.getCurrentPrice()
-    await contract.mintSpecific(547, {
+    await contract.mintSpecific(547, [], {
       gasLimit: 5000000,
       value: price4
     })
@@ -125,6 +140,28 @@ describe('GeneratedWeb', () => {
   //   }
   //   expect(true).to.equal(true)
   // })
+
+  it('Should let a holder mint with a 20% discount', async () => {
+    const currentPrice = await contract.getCurrentPrice()
+
+    const mintTxn = await contract.connect(holderSigner).mintSpecific(12, holderProof, {
+      gasLimit: 5000000,
+      value: String(Number(currentPrice) * 0.8)
+    })
+    const owner = await contract.ownerOf(12)
+    expect(owner).to.equal('0xaBCF7ca8Ba78eB75d79DFf6B0F9fa23e78293cCB')
+  })
+
+  it('Should NOT let a non-holder mint with a 20% discount', async () => {
+    const currentPrice = await contract.getCurrentPrice()
+
+    const mintTxn = contract.mintSpecific(13, holderProof, {
+      gasLimit: 5000000,
+      value: String(Number(currentPrice) * 0.8)
+    })
+    
+    expect(mintTxn).to.be.revertedWith("Not enough ether")
+  })
 
   it('Should not mint any more tokens', async () => {
     const price = await contract.getCurrentPrice()

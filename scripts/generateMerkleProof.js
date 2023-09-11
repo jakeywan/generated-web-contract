@@ -1,12 +1,10 @@
-const data = require('../files/merkle.json')
-const addresses = require('../files/studioCertPublicAddresses.js')
 const keccak256 = require('keccak256')
 const { MerkleTree } = require('merkletreejs')
 
-const generateMerkleProof = (address) => {
+const generateMerkleProof = (address, sourceSet) => {
   let leafNodes = []
-  addresses.forEach((addy, index) => {
-    leafNodes.push(keccak256(addy.address))
+  sourceSet.forEach((addy, index) => {
+    leafNodes.push(keccak256(addy))
   })
 
   const merkleTree = new MerkleTree(

@@ -1,14 +1,17 @@
-const addresses = require('../files/communities.js')
+const communities = require('../allowlists/communities.js')
+const holders = require('../allowlists/holders.js')
+const fpmembers = require('../allowlists/fpmembers.js')
+
 const keccak256 = require('keccak256')
 const { MerkleTree } = require('merkletreejs')
 const fs = require('fs')
 const path = require('path')
 const { utils } = require('ethers')
 
-const exec = async () => {
+const exec = async (sourceSet, fileName) => {
   let leafNodes = []
   
-  addresses.forEach((addy, index) => {
+  sourceSet.forEach((addy, index) => {
     leafNodes.push(keccak256(addy))
   })
 
@@ -25,7 +28,7 @@ const exec = async () => {
   console.log('Tree', merkleTree.toString())
 
   // Output file path
-  const outputPath = path.join(__dirname, "../files/merkle.json")
+  const outputPath = path.join(__dirname, "../allowlists/" + fileName)
 
   // Collect and save merkle tree + root
   await fs.writeFileSync(
@@ -37,7 +40,9 @@ const exec = async () => {
       tree: merkleTree
     })
   )
-  console.log("Generated merkle tree and root saved to merkle.json.")
+  console.log("generated merkle tree and saved root")
 }
 
-exec()
+exec(communities, "communitiesRoot.json")
+exec(holders, "holdersRoot.json")
+exec(fpmembers, "fpMembersRoot.json")
