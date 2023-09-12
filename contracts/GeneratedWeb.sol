@@ -24,6 +24,24 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         uint8 coverage;
     }
 
+    string[] public colorOptions = [
+        '#FF0000',
+        '#FF8000',
+        '#FFFF00',
+        '#80FF00',
+        '#00FF00',
+        '#00FF80',
+        '#00FFFF',
+        '#0080FF',
+        '#0000FF',
+        '#8000FF',
+        '#FF00FF',
+        '#FF0080'
+    ];
+
+    string[3] public complexityOptions = ['Simple', 'Medium', 'Intricate'];
+    string[3] public coverageOptions = ['Thin', 'Medium', 'Full'];
+
     TokenData[] public tokenData;
 
     // TODO: add the final merkle roots in
@@ -47,6 +65,9 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
     uint256 private nextAvailableRandomId;
     uint256 public supplyCount;
     uint256 public maxSupply = 1000;
+
+    /// @dev this work is entirely on chain but we'll serve static images as thumbnails
+    string public ipfsHash = 'bafybeib2zkka7bqpuucbbirwu2g6vjen66buetxovijrafsh7wuhdjvdbu';
 
     constructor()
       ERC721("Generated Web", "GENWEB")
@@ -152,9 +173,10 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
 
     // TODO: save the tokens, with IPFS links, to storage
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        string memory description = "this is our description";
-        string memory finalTemplate = Base64.encode(bytes(string(abi.encodePacked(templateA, tokenData[tokenId].seed, templateB))));
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name":"', tokenId, '", "description":"', description, '", "animation_url":"data:text/html;base64,', finalTemplate, '"}'))));
+        TokenData memory token = tokenData[tokenId];
+        string memory description = "Web is a monument to the hyperlink, a poem dedicated to machine learning and a computer's d\u00E9rive within itself. The project is a fully on-chain generative cross-linked network of webpages released in partnership with Fingerprints DAO and is a coproduction with Superposition. Blockchain development by Jake Allen.";
+        string memory finalTemplate = Base64.encode(bytes(string(abi.encodePacked(templateA, token.seed, templateB))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name":"', token.name, '", "description":"', description, '", "image": "ipfs://', ipfsHash, '/', tokenId.toString() ,'.png", "animation_url":"data:text/html;base64,', finalTemplate, '", "attributes":[{"trait_type":"Color","value":"', colorOptions[token.color],'"}, {"trait_type":"Complexity", "value":"', complexityOptions[token.complexity],'"}, {"trait_type": "Coverage", "value": "', coverageOptions[token.coverage],'"}]}'))));
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
 

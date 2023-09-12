@@ -5,6 +5,7 @@ const { time } = require('@nomicfoundation/hardhat-network-helpers')
 const generateMerkleProof = require('../scripts/generateMerkleProof')
 const holders = require('../allowlists/holders')
 const provider = waffle.provider;
+const metadata = require('../files/metadata')
 
 // const metadata = require('../files/final_data.json')
 
@@ -31,6 +32,19 @@ describe('GeneratedWeb', () => {
       value: ethers.utils.parseEther("6.0"), // Sends exactly 6.0 ether
     });
 
+  })
+
+  it('Should add tokendata', async() => {
+    await contract.addTokenData(metadata.slice(0, 100))
+    await contract.addTokenData(metadata.slice(101, 200))
+    await contract.addTokenData(metadata.slice(201, 300))
+    await contract.addTokenData(metadata.slice(301, 400))
+    await contract.addTokenData(metadata.slice(401, 500))
+    await contract.addTokenData(metadata.slice(501, 600))
+    await contract.addTokenData(metadata.slice(601, 700))
+    await contract.addTokenData(metadata.slice(701, 800))
+    await contract.addTokenData(metadata.slice(801, 900))
+    await contract.addTokenData(metadata.slice(901, 1000))
   })
 
   it('Should get price', async () => {
@@ -62,11 +76,6 @@ describe('GeneratedWeb', () => {
     expect(true).to.equal(true)
   })
 
-  // it('Should print tokenURI', async () => {
-  //   console.log(await contract.tokenURI(0))
-  //   expect(true).to.equal(true)
-  // })
-
   it('Should mint four specific tokens', async () => {
     const price = await contract.getCurrentPrice()
     await contract.mintSpecific(4, [], ethers.constants.AddressZero, {
@@ -74,6 +83,7 @@ describe('GeneratedWeb', () => {
       value: price
     })
     console.log("minted 4")
+    console.log(await contract.tokenURI(4))
 
     const price2 = await contract.getCurrentPrice()
     await contract.mintSpecific(32, [], ethers.constants.AddressZero, {
@@ -205,110 +215,7 @@ describe('GeneratedWeb', () => {
     expect(parseFloat(newUserEtherBalance * 1).toFixed(8)).to.equal(parseFloat(etherBalance * 1 + contractEtherBalance * 1).toFixed(8))
   })
 
-  it('Should add tokendata', async() => {
-    const update = await contract.addTokenData([
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-      {seed: '67436375f8fdba37f92c571bfe17a887', name: 'nt Deocum', color: '0', complexity: '3', fill: '4'},
-    ])
-  })
+  
 
   // TODO: test delegate.cash functionality 
 
