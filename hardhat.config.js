@@ -43,6 +43,7 @@ module.exports = {
   etherscan: {
     apiKey: {
       mainnet: process.env.ETHERSCAN_KEY,
+      goerli: process.env.ETHERSCAN_KEY,
       base: 'NT1MMJCR5ID4NHM3WGZ1AXZVQPI3CSYFH3'
     },
     customChains: [

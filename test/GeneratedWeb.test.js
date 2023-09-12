@@ -35,16 +35,16 @@ describe('GeneratedWeb', () => {
   })
 
   it('Should add tokendata', async() => {
-    await contract.addTokenData(metadata.slice(0, 100))
-    await contract.addTokenData(metadata.slice(101, 200))
-    await contract.addTokenData(metadata.slice(201, 300))
-    await contract.addTokenData(metadata.slice(301, 400))
-    await contract.addTokenData(metadata.slice(401, 500))
-    await contract.addTokenData(metadata.slice(501, 600))
-    await contract.addTokenData(metadata.slice(601, 700))
-    await contract.addTokenData(metadata.slice(701, 800))
-    await contract.addTokenData(metadata.slice(801, 900))
-    await contract.addTokenData(metadata.slice(901, 1000))
+    await contract.addTokenData(metadata.slice(0, 100)) // IMPORTANT, slice exludes the last value
+    await contract.addTokenData(metadata.slice(100, 200))
+    await contract.addTokenData(metadata.slice(200, 300))
+    await contract.addTokenData(metadata.slice(300, 400))
+    await contract.addTokenData(metadata.slice(400, 500))
+    await contract.addTokenData(metadata.slice(500, 600))
+    await contract.addTokenData(metadata.slice(600, 700))
+    await contract.addTokenData(metadata.slice(700, 800))
+    await contract.addTokenData(metadata.slice(800, 900))
+    await contract.addTokenData(metadata.slice(900, 1000))
   })
 
   it('Should get price', async () => {
@@ -98,6 +98,7 @@ describe('GeneratedWeb', () => {
       value: price3
     })
     console.log("minted 999")
+    console.log(await contract.tokenURI(999))
 
     const price4 = await contract.getCurrentPrice()
     await contract.mintSpecific(547, [], ethers.constants.AddressZero, {

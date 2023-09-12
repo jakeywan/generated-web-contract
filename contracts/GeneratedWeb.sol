@@ -78,7 +78,7 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
         config.startPriceInWei = 1000000000000000000; // 1 eth
         config.endPriceInWei = 100000000000000000; // .1 eth
         // TODO
-        config.fundsRecipient = payable(0x2D63a6Ee734287955Edc1201ef3344E5Fe7E2847);
+        config.fundsRecipient = payable(0xaBCF7ca8Ba78eB75d79DFf6B0F9fa23e78293cCB);
         
     }
 
