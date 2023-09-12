@@ -9,7 +9,7 @@ const metadata = require('../files/metadata')
 
 // const metadata = require('../files/final_data.json')
 
-describe('GeneratedWeb', () => {
+describe('Web', () => {
 
   let contract
   let holderProof
@@ -18,7 +18,7 @@ describe('GeneratedWeb', () => {
     const [deployer] = await ethers.getSigners()
     deployerAddress = deployer.address
 
-    const GeneratedWeb = await ethers.getContractFactory('GeneratedWeb')
+    const GeneratedWeb = await ethers.getContractFactory('Web')
     contract = await GeneratedWeb.deploy()
 
     holderAddress = '0xaBCF7ca8Ba78eB75d79DFf6B0F9fa23e78293cCB'

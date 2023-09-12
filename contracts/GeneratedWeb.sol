@@ -11,7 +11,7 @@ import "./interfaces/IDelegationRegistry.sol";
 // TODO: remove
 import "hardhat/console.sol";
 
-contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
+contract Web is ERC721, Ownable, ReentrancyGuard {
     using Strings for uint256;
 
     IDelegationRegistry delegationRegistry = IDelegationRegistry(0x00000000000076A84feF008CDAbe6409d2FE638B);
@@ -70,7 +70,7 @@ contract GeneratedWeb is ERC721, Ownable, ReentrancyGuard {
     string public ipfsHash = 'bafybeib2zkka7bqpuucbbirwu2g6vjen66buetxovijrafsh7wuhdjvdbu';
 
     constructor()
-      ERC721("Generated Web", "GENWEB")
+      ERC721("Web", "WEB")
     {
         // TODO: set this timestamp to a specific date/time
         config.startTime = uint64(block.timestamp);
