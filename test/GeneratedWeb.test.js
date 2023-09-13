@@ -199,18 +199,20 @@ describe('Web', () => {
 
   // TODO: test withdrawing funds
   it('Should withdraw funds', async () => {
+    const config = await contract.config()
+    const fundsRecipient = config.fundsRecipient
+
     const contractBalance = await ethers.provider.getBalance(contract.address)
     const contractEtherBalance = ethers.utils.formatEther(contractBalance)
 
-    const testAddress = '0x2D63a6Ee734287955Edc1201ef3344E5Fe7E2847'
-    const balance = await ethers.provider.getBalance(testAddress)
+    const balance = await ethers.provider.getBalance(fundsRecipient)
     const etherBalance = ethers.utils.formatEther(balance)
 
     // overloaded functions for `release` and `released`
     const releaseTxn = await contract.withdraw()
     await releaseTxn.wait()
     
-    const newUserEtherBalance = ethers.utils.formatEther(await ethers.provider.getBalance(testAddress))
+    const newUserEtherBalance = ethers.utils.formatEther(await ethers.provider.getBalance(fundsRecipient))
 
     // rounding to avoid small precision inaccuracies reporting failed tests
     expect(parseFloat(newUserEtherBalance * 1).toFixed(8)).to.equal(parseFloat(etherBalance * 1 + contractEtherBalance * 1).toFixed(8))
