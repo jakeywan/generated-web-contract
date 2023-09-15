@@ -84,9 +84,10 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
     }
 
     function getCurrentPrice() public view returns (uint256) {
-        uint256 elapsedTime = block.timestamp - config.startTime;
+        uint256 elapsedTime = ((block.timestamp - config.startTime) / 10 ) * 10;
+        
         uint256 duration = config.endTime - config.startTime;
-        uint256 halflife = 700; // adjust this to adjust speed of decay
+        uint256 halflife = 850; // adjust this to adjust speed of decay
 
         if (block.timestamp < config.startTime) {
             return config.startPriceInWei;

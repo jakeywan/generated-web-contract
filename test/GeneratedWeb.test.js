@@ -49,30 +49,183 @@ describe('Web', () => {
 
   it('Should get price', async () => {
     console.log(await contract.getCurrentPrice())
-    await time.increase(300); // 5 minutes
+    await time.increase(1); // 5 minutes
     console.log(await contract.getCurrentPrice())
-    await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
-    // await time.increase(300); // 5 minutes
-    // console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(1); // 5 minutes
+
+    console.log('------')
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(await contract.getCurrentPrice())
+
     expect(true).to.equal(true)
   })
 
