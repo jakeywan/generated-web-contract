@@ -109,6 +109,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
             // Price may not decay below stay `basePrice`.
             return config.endPriceInWei;
         }
+        decayedPrice = (decayedPrice / 1000000000000000) * 1000000000000000;
         return decayedPrice;
     }
 
