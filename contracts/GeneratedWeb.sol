@@ -70,6 +70,8 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
     string public ipfsHash = 'bafybeib2zkka7bqpuucbbirwu2g6vjen66buetxovijrafsh7wuhdjvdbu';
     string public externalUrl = 'https://web.leegte.org/id?=';
 
+    event NewMint(address indexed _owner, uint256 indexed _tokenId);
+
     constructor()
       ERC721("Web", "WEB")
     {
@@ -141,6 +143,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
         supplyCount++;
 
         _safeMint(msg.sender, tokenId);
+        emit NewMint(msg.sender, tokenId);
     }
 
     function mintSpecific(uint256 tokenId, bytes32[] calldata merkleProof, address vault) external payable nonReentrant {
