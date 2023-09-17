@@ -68,7 +68,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
 
     /// @dev this work is entirely on chain but we'll serve static images as thumbnails
     string public ipfsHash = 'bafybeib2zkka7bqpuucbbirwu2g6vjen66buetxovijrafsh7wuhdjvdbu';
-    string public externalUrl = 'https://web.leegte.org/id?=';
+    string public externalUrl = 'https://web.leegte.org/?id=';
 
     event NewMint(address indexed _owner, uint256 indexed _tokenId);
 
@@ -241,6 +241,14 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
         holderMerkleRoot = _holderRoot;
         fpMembersMerkleRoot = _fbMemberRoot;
         communitiesMerkleRoot = _communityRoot;
+    }
+
+    function updateIPFSHash(string memory _hash) external onlyOwner {
+        ipfsHash = _hash;
+    }
+
+    function updateExternalURL(string memory _url) external onlyOwner {
+        externalUrl = _url;
     }
 
 }
