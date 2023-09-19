@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "npx hardhat run --network sepolia scripts/deployContract.js",
-    "verify": "npx hardhat verify --network sepolia 0xF00120b70A99F95D6Cf41eed5180c693a3ea5041",
+    "verify": "npx hardhat verify --network sepolia 0x64E6eF67019faF6119b97EACC1244753Abf93ED2",
     "test": "npx hardhat test --network localhost"
   },
   "devDependencies": {
