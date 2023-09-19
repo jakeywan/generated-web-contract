@@ -77,13 +77,11 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
     constructor()
       ERC721("Web", "WEB")
     {
-        // TODO: set this timestamp to a specific date/time
-        config.startTime = uint64(block.timestamp);
-        config.endTime = uint64(block.timestamp + 3600);
+        config.startTime = uint64(1695225600);
+        config.endTime = uint64(1695225600 + 3600);
         config.startPriceInWei = 1000000000000000000; // 1 eth
         config.endPriceInWei = 100000000000000000; // .1 eth
-        // TODO -- 0x9220e3df5f4A8439B7DecfbB9f39BE98c188F5f2
-        config.fundsRecipient = payable(0xaBCF7ca8Ba78eB75d79DFf6B0F9fa23e78293cCB);
+        config.fundsRecipient = payable(0x9220e3df5f4A8439B7DecfbB9f39BE98c188F5f2);
         
     }
 
@@ -91,7 +89,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
         uint256 elapsedTime = ((block.timestamp - config.startTime) / 10 ) * 10;
         
         uint256 duration = config.endTime - config.startTime;
-        uint256 halflife = 850; // adjust this to adjust speed of decay
+        uint256 halflife = 950; // adjust this to adjust speed of decay
 
         if (block.timestamp < config.startTime) {
             return config.startPriceInWei;
