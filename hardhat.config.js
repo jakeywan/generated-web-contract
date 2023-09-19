@@ -28,6 +28,10 @@ module.exports = {
       url: `https://goerli.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
       accounts: [process.env.WALLET_PRIVATE_KEY],
     },
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_PROJECT_ID}`,
+      accounts: [process.env.WALLET_PRIVATE_KEY],
+    },
     hardhat: {
       forking: {
         url: `https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`
@@ -44,6 +48,7 @@ module.exports = {
     apiKey: {
       mainnet: process.env.ETHERSCAN_KEY,
       goerli: process.env.ETHERSCAN_KEY,
+      sepolia: process.env.ETHERSCAN_KEY,
       base: 'NT1MMJCR5ID4NHM3WGZ1AXZVQPI3CSYFH3'
     },
     customChains: [

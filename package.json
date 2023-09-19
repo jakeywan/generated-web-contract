@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat run --network goerli scripts/deployContract.js",
-    "verify": "npx hardhat verify --network goerli 0x0f7CA4B36b952A1A0Bddd9342b49215f6fB0B8dF",
+    "deploy": "npx hardhat run --network sepolia scripts/deployContract.js",
+    "verify": "npx hardhat verify --network sepolia 0xF00120b70A99F95D6Cf41eed5180c693a3ea5041",
     "test": "npx hardhat test --network localhost"
   },
   "devDependencies": {

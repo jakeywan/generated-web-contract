@@ -43,7 +43,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
     TokenData[] public tokenData;
 
     // TODO: add the final merkle roots in
-    bytes32 public holderMerkleRoot = 0xe79d621b6ce06c4c74de82ba8f7a7e320228f93cde3e368de3d5e268b74e1c2d; // 20% discount
+    bytes32 public holderMerkleRoot = 0x79cf865cba83270693472453dac4ad27b5f4cf93c204d70bda3459fc338b5357; // 20% discount
     bytes32 public fpMembersMerkleRoot = 0xe79d621b6ce06c4c74de82ba8f7a7e320228f93cde3e368de3d5e268b74e1c2d; // 20% discount
     bytes32 public communitiesMerkleRoot = 0xe79d621b6ce06c4c74de82ba8f7a7e320228f93cde3e368de3d5e268b74e1c2d; // 15% discount
 
@@ -252,5 +252,5 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
     function updateDelegateAddress(address _address) external onlyOwner {
         delegationRegistry = IDelegationRegistry(_address);
     }
-    
+
 }
