@@ -22,7 +22,7 @@ const buildLists = () => {
   const onComplete = (results, file) => {
     // PARSE THE CSV
     results.data.forEach((item, index) => {
-      if (item.TOKEN_NAME === "Fingerprints") {
+      if (item.TOKEN_NAME === "Fingerprints" || item.TOKEN_NAME === "Voxelglyph") {
         fingerprints.push(item.USER_ADDRESS)
       } else {
         community.push(item.USER_ADDRESS)
