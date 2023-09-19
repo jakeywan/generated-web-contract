@@ -48,183 +48,190 @@ describe('Web', () => {
   })
 
   it('Should get price', async () => {
-    console.log(await contract.getCurrentPrice())
+
+    const config = await contract.config()
+
+    // mine a new block with timestamp `newTimestamp`
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
+    await time.increase(60); // 5 minutes
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(1); // 5 minutes
 
     console.log('------')
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
     await time.increase(60); // 5 minutes
-    console.log(await contract.getCurrentPrice())
+    console.log(Number(config.endTime) - await time.latest(), await contract.getCurrentPrice())
+    console.log()
 
     expect(true).to.equal(true)
   })

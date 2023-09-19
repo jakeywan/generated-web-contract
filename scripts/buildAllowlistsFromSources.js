@@ -7,6 +7,8 @@ const coinsList = fs.createReadStream('./allowlistSources/coin-2.csv')
 const ornamentLeegte = fs.createReadStream('./allowlistSources/ornamentLeegte.csv')
 const dudes = fs.createReadStream('./allowlistSources/theDudesSnapshot.csv')
 const jotform = fs.createReadStream('./allowlistSources/jotform_allowlist_data.csv')
+const janABOwners = fs.createReadStream('./allowlistSources/janABOwners.csv')
+const citadel = require('../allowlistSources/citadel.js')
 
 const buildLists = () => {
 
@@ -90,8 +92,22 @@ const buildLists = () => {
     })
 
 
-  
+    // janABOwners
+    const janOnComplete = (results, file) => {
+        // PARSE THE CSV
+        results.data.forEach((item, index) => {
+            holders.push(item.owner)
+        })
+    }
 
+  Papa.parse(janABOwners, {
+      header: true,
+      complete: janOnComplete
+  })
+
+  citadel.forEach(item => {
+    holders.push(item)
+  })
 
   setTimeout(() => {
     // write metadata file
