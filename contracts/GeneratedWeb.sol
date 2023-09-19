@@ -8,8 +8,6 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { Base64 } from "base64-sol/base64.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "./interfaces/IDelegationRegistry.sol";
-// TODO: remove
-import "hardhat/console.sol";
 
 contract Web is ERC721, Ownable, ReentrancyGuard {
     using Strings for uint256;
@@ -80,7 +78,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
         config.endTime = uint64(block.timestamp + 3600);
         config.startPriceInWei = 1000000000000000000; // 1 eth
         config.endPriceInWei = 100000000000000000; // .1 eth
-        // TODO
+        // TODO -- 0x9220e3df5f4A8439B7DecfbB9f39BE98c188F5f2
         config.fundsRecipient = payable(0xaBCF7ca8Ba78eB75d79DFf6B0F9fa23e78293cCB);
         
     }
@@ -179,7 +177,7 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
 
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         TokenData memory token = tokenData[tokenId];
-        string memory description = "Web is a monument to the hyperlink, a poem dedicated to machine learning and a computer's d\u00E9rive within itself. The project is a fully on-chain generative cross-linked network of webpages released in partnership with Fingerprints DAO and is a coproduction with Superposition. Blockchain development by Jake Allen.";
+        string memory description = "Web is a monument to the hyperlink, a poem dedicated to machine learning and a computer's d\u00E9rive within itself.<br><br> The project is a fully on-chain generative cross-linked network of webpages released in partnership with Fingerprints DAO and is a coproduction with Superposition. Blockchain development by Jake Allen.";
         string memory finalTemplate = Base64.encode(bytes(string(abi.encodePacked(templateA, token.seed, templateB))));
         string memory json1 = string(abi.encodePacked('{"name":"', token.name, '", "description":"', description, '", "image": "ipfs://', ipfsHash, '/', tokenId.toString() ,'.png", '));
         string memory json2 = string(abi.encodePacked('"animation_url":"data:text/html;base64,', finalTemplate, '", "attributes":[{"trait_type":"Color","value":"', colorOptions[token.color],'"}, {"trait_type":"Complexity", "value":"', complexityOptions[token.complexity],'"}, {"trait_type": "Coverage", "value": "', coverageOptions[token.coverage],'"}], "external_url": "', externalUrl, token.seed, '"}'));
@@ -251,4 +249,8 @@ contract Web is ERC721, Ownable, ReentrancyGuard {
         externalUrl = _url;
     }
 
+    function updateDelegateAddress(address _address) external onlyOwner {
+        delegationRegistry = IDelegationRegistry(_address);
+    }
+    
 }
